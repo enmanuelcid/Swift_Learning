@@ -1,0 +1,35 @@
+class Auto {
+
+    enum estados : String {
+        case Apagado = "apagado"
+        case VelocidadBaja = "velocidad baja"
+        case VelocidadMedia = "velocidad media"
+        case VelocidadAlta = "velocidad alta"
+        
+        init() {
+            self = .Apagado
+        }
+    }
+    
+    var estadoNumerico : Int = 0
+    
+    init(estadoNumerico : Int) {
+        self.estadoNumerico = estadoNumerico
+    }
+    
+    func calcularVelocidad (){
+        if case 1...40 = estadoNumerico {
+            print ( "su estado es : \(estados.VelocidadBaja.rawValue)")
+        } else if case 41...60 = estadoNumerico {
+            print ( "su estado es : \(estados.VelocidadMedia.rawValue)")
+        } else if case 61...120 = estadoNumerico {
+            print ( "su estado es : \(estados.VelocidadAlta.rawValue)")
+        } else {
+            print ( "su estado es : \(estados.Apagado.rawValue)")
+        }
+    }
+}
+
+
+var carro = Auto(estadoNumerico : 67)
+carro.calcularVelocidad()
