@@ -1,35 +1,55 @@
-class Auto {
 
-    enum estados : String {
-        case Apagado = "apagado"
-        case VelocidadBaja = "velocidad baja"
-        case VelocidadMedia = "velocidad media"
-        case VelocidadAlta = "velocidad alta"
+import UIKit
+
+
+enum Velocidades : Int {
+        case Apagado = 0
+        case VelocidadBaja = 20
+        case VelocidadMedia = 50
+        case VelocidadAlta = 120
         
-        init() {
-            self = .Apagado
+        init(velocidadinicial : Velocidades) {
+            self = velocidadinicial
         }
     }
+
+
+class Auto {
     
-    var estadoNumerico : Int = 0
+    var velocidad : Velocidades
     
-    init(estadoNumerico : Int) {
-        self.estadoNumerico = estadoNumerico
+    init() {
+        velocidad = .Apagado
     }
     
-    func calcularVelocidad (){
-        if case 1...40 = estadoNumerico {
-            print ( "su estado es : \(estados.VelocidadBaja.rawValue)")
-        } else if case 41...60 = estadoNumerico {
-            print ( "su estado es : \(estados.VelocidadMedia.rawValue)")
-        } else if case 61...120 = estadoNumerico {
-            print ( "su estado es : \(estados.VelocidadAlta.rawValue)")
-        } else {
-            print ( "su estado es : \(estados.Apagado.rawValue)")
+    func cambioDeVelocidad() -> (actual: Int, velocidadEnCadena: String) {
+        
+        switch velocidad {
+        case .Apagado:
+            let estadoAcutal = (velocidad.rawValue, "Apagado")
+            velocidad = .VelocidadBaja
+            return estadoAcutal
+        case .VelocidadBaja:
+            let estadoActual = (velocidad.rawValue, "Velocidad baja")
+            velocidad = .VelocidadMedia
+            return estadoActual
+        case .VelocidadMedia:
+            let estadoActual = (velocidad.rawValue, "Velocidad media")
+            velocidad = .VelocidadAlta
+            return estadoActual
+        default:
+            let estadoActual = (velocidad.rawValue, "Velocidad alta")
+            velocidad = .VelocidadMedia
+            return estadoActual
         }
+        
     }
+    
 }
 
+var auto = Auto()
 
-var carro = Auto(estadoNumerico : 67)
-carro.calcularVelocidad()
+for i in 1...20 {
+    let prueba = auto.cambioDeVelocidad()
+    print("\(prueba.actual), \(prueba.velocidadEnCadena)")
+}
